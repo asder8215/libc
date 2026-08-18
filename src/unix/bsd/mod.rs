@@ -123,7 +123,10 @@ s! {
     pub struct sockaddr_un {
         pub sun_len: u8,
         pub sun_family: sa_family_t,
+        #[cfg(not(target_os = "dragonfly"))]
         pub sun_path: [c_char; 104],
+        #[cfg(target_os = "dragonfly")]
+        pub sun_path: [c_char; 108],
     }
 
     pub struct utsname {
